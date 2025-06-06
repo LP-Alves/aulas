@@ -9,6 +9,24 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="JavaApplication202" default="default" basedir=".">
     <description>Builds, tests, and runs the project JavaApplication202.</description>
+    
+    <!-- Load configurable Java version properties if available -->
+    <property file="${basedir}/java-version.properties"/>
+    
+    <!-- Define default Java version if not specified in properties -->
+    <property name="java.version.source" value="17"/>
+    <property name="java.version.target" value="17"/>
+    
+    <!-- Override default Java versions in the imported build file -->
+    <target name="-pre-init">
+        <!-- Set configurable Java version -->
+        <echo message="Using Java source version ${java.version.source} and target version ${java.version.target}"/>
+        <property name="javac.source" value="${java.version.source}"/>
+        <property name="javac.target" value="${java.version.target}"/>
+        <property name="default.javac.source" value="${java.version.source}"/>
+        <property name="default.javac.target" value="${java.version.target}"/>
+    </target>
+    
     <import file="nbproject/build-impl.xml"/>
     <!--
 
